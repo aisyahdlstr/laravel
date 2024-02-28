@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMatkulsTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateMatkulsTable extends Migration
      */
     public function up()
     {
-        Schema::create('matkuls', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_matkul');
-            $table->integer('semester');
-            $table->integer('sks');
+            $table->string('name');
+            $table->integer('price');
+            $table->text('image');
+            $table->text('description');
 
             $table->softDeletes();
             $table->timestamps();
@@ -31,6 +32,6 @@ class CreateMatkulsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matkuls');
+        Schema::dropIfExists('products');
     }
 }

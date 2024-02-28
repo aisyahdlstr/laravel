@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Matkul extends Model
+class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'nama_matkul','semester','sks'
+    protected $fillable =[
+        'name','price','stock','image','description',
     ];
-
 }

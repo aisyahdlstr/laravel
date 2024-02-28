@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProdisTable extends Migration
+class AddStokAtProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateProdisTable extends Migration
      */
     public function up()
     {
-        Schema::create('prodis', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_prodi');
-
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->integer('stock')->after('price');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateProdisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prodis');
+        Schema::table('products', function (Blueprint $table) {
+            //
+        });
     }
 }

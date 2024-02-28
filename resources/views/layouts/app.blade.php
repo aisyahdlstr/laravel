@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>cb - Akademik</title>
+    <title>{{ $title }} - App Inverntory </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Akademik
+                    Inventaris
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -32,21 +32,15 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    {{-- Auth Links --}}
                     @auth
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a href="{{ route('dosen.index') }}" class="nav-link">Dosen</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              Mahasiswa
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
-                              <li><a class="dropdown-item" href="{{ route('prodi.index') }}">Prodi</a></li>
-                              <li><a class="dropdown-item" href="{{ route('matkul.index') }}">Mata Kuliah</a></li>
-                            </ul>
-                    </ul>
-
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link">Barang Masuk</a></li>
+                            <li class="nav-item"><a href="{{ route('transaction.index') }}" class="nav-link">Barang Keluar</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">User</a></li>
+                        </ul>
                     @endauth
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

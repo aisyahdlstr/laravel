@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prodi;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class ProdiController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,11 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        $prodis = Prodi::all();
-        return view('pages.prodi.index',[
-            'prodis' => $prodis,
-            'title' => 'All Data Prodi',
+        $products = Product::all();
+
+        return view('pages.products.index',[
+            'products' => $products,
+            'title' => 'All Data Product',
         ]);
     }
 
@@ -28,8 +30,8 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        return view('pages.prodi.create',[
-        'title' => 'Tambah Data Prodi',
+        return view('pages.products.create',[
+            'title' => 'Tambah Data Product'
         ]);
     }
 
@@ -42,15 +44,16 @@ class ProdiController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $data['image'] = $request->file('image')->store('products','public');
 
-        Prodi::create($data);
-        return redirect()->route('prodi.index');
+        Product::create($data);
+        return redirect()->route(('product.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Prodi  $prodi
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,42 +64,52 @@ class ProdiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Prodi  $prodi
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $prodi = Prodi::findOrFail($id);
-        return view('pages.prodi.edit',[
-            'title' => 'Edit Data',
-            'prodi' => $prodi,
+        $product = Product::findOrFail($id);
+        return view('pages.products.edit',[
+            'title' => 'Edit Product',
+            'product' => $product
         ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Prodi  $prodi
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        if(!empty($data['image'])){
+            $data['image'] = $request->file('image')->store('products','public');
 
-        Prodi::findOrFail($id)->update($data);
-        return redirect()->route('prodi.index');
+        } else{
+            unset($data['image']);
+        }
+
+        Product::findorFail($id)->update($data);
+        return redirect()->route(('product.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Prodi  $prodi
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Prodi::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);
+        Storage::delete($product->image);
+
+        $product->delete();
         return redirect()->back();
     }
 }

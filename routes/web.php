@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\MatkulController;
-use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,12 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth::routes(['register' => false, "password.reset"=> false]);
-Auth::routes();
+Auth::routes(['register' => false, "password.reset" => false]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('dosen', DosenController::class);
-Route::resource('prodi',ProdiController::class);
-Route::resource('matkul', MatkulController::class);
-Route::resource('mahasiswa', MahasiswaController::class);
+Route::resource('product',ProductController::class);
+Route::resource('transaction',TransactionController::class);
